@@ -64,6 +64,11 @@ def build_preprocessor(scale=False):
     ).set_output(transform="pandas")
 
 
+def transform(pipe, X):
+    """Run only the feature steps of a fitted pipeline (skips resampler/model)."""
+    return pipe.named_steps["prep"].transform(pipe.named_steps["engineer"].transform(X))
+
+
 def build_features(scale=False):
     """Feature engineering + preprocessing as one Pipeline (no model)."""
     return Pipeline(

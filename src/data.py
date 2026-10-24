@@ -3,6 +3,7 @@ import urllib.request
 
 import numpy as np
 import pandas as pd
+from sklearn.model_selection import train_test_split
 
 from src import config
 
@@ -53,3 +54,11 @@ def load_clean(path=config.RAW_PATH):
 def split_xy(df):
     """Split a cleaned dataframe into features and target."""
     return df.drop(columns=[config.TARGET]), df[config.TARGET].to_numpy(dtype=np.int64)
+
+
+def train_test(df=None):
+    """Stratified, seeded 80/20 split. Returns X_train, X_test, y_train, y_test."""
+    X, y = split_xy(load_clean() if df is None else df)
+    return train_test_split(
+        X, y, test_size=config.TEST_SIZE, stratify=y, random_state=config.SEED
+    )
