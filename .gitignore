@@ -1,0 +1,12 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.pytest_cache/
+.vscode/
+data/processed/
+*.log
+.DS_Store
+.claude/
+graphify-out/
